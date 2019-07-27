@@ -1,10 +1,10 @@
 import { ShuffleEngine, Song } from '../model/ShuffleSongModel';
+import { getShuffleData } from '../utils/shuffledArray';
 
 const PEEKMAX: number = 5;
 
 export class ShuffleSongController implements ShuffleEngine {
   songs: Song[] = [];
-  // nextSong?: Song = undefined;
   playingIndex: number = 0;
 
   /**
@@ -12,19 +12,29 @@ export class ShuffleSongController implements ShuffleEngine {
    * @param songs
    */
   setSongs(songs: Song[]): void {
-    this.songs = this.getShuffleData(songs);
+    this.songs = getShuffleData(songs);
   }
 
-  setPlayIndex(index: number) {
+  /**
+   * 対象曲を返却する
+   */
+  getSongs(): Song[] {
+    return this.songs;
+  }
+
+  /**
+   * 再生中の曲のインデックスを設定する
+   * @param index
+   */
+  setPlayingIndex(index: number) {
     this.playingIndex = index;
   }
 
-  getPlayIndex(): number {
+  /**
+   * 再生中の曲のインデックスを返却する
+   */
+  getPlayingIndex(): number {
     return this.playingIndex;
-  }
-
-  getSongs(): Song[] {
-    return this.songs;
   }
 
   /**
@@ -33,61 +43,23 @@ export class ShuffleSongController implements ShuffleEngine {
   getNextSong(): Song {
     this.playingIndex++;
     if (this.playingIndex === this.songs.length) {
+      // リストの最後に到達したときは再度シャッフルして一曲目に戻す
       this.setSongs(this.songs);
-      this.setPlayIndex(0);
+      this.setPlayingIndex(0);
       return this.songs[0];
     } else {
       const nextSong = this.songs[this.playingIndex];
-
-      console.log('this.nextSong::', nextSong);
       return nextSong;
     }
   }
 
   /**
-   * 次に再生する予定の曲を返却する
-   * @return 次に再生する曲
+   * 次に再生する予定の5曲を返却する
+   * @return 次に再生する5曲
    */
   peekQueue(): Song[] {
-    const queue: Song[] = ((): Song[] => {
-      return this.songs.slice(0, PEEKMAX);
-    })();
-    return queue;
-  }
-
-  /**
-   * 配列をシャッフルして返却する
-   * @param arr
-   */
-  private getShuffleData(arr: Song[]): Song[] {
-    const index = this.shuffledIndex(arr.length);
-    return arr.map((_, i) => arr[index[i]]);
-  }
-
-  /**
-   * シャッフルされた配列のインデックスを返す
-   * @param arrayLength
-   */
-  private shuffledIndex(arrayLength: number) {
-    let index: number;
-    const arr = Array(arrayLength);
-    const rest = [...Array(arrayLength - 1)].map((_, i) => i + 1); // 0は抜いておく
-
-    // 0番目に値を入れる
-    let _n = 0 | (Math.random() * rest.length);
-    arr[0] = rest[_n];
-    index = rest[_n]; // 今回の値が次のnの値
-    rest.splice(_n, 1);
-
-    while (rest.length > 0) {
-      // 以下同様に繰り返す
-      _n = 0 | (Math.random() * rest.length);
-      arr[index] = rest[_n];
-
-      index = rest[_n];
-      rest.splice(_n, 1);
-    }
-    arr[index] = 0; // 最後の位置に0を入れて完了
-    return arr;
+    const startIndex = this.playingIndex + 1;
+    const endIndex = startIndex + PEEKMAX;
+    return this.songs.slice(startIndex, endIndex);
   }
 }

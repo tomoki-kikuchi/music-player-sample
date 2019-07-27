@@ -29,14 +29,14 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
             </IonThumbnail>
             <IonLabel>{data.title}</IonLabel>
 
-            {/*{playingSong && playingSong.id === data.id && (*/}
-            {/*  <IonIcon*/}
-            {/*    icon={playCircle}*/}
-            {/*    onClick={() => {*/}
-            {/*      onPlay(data.id);*/}
-            {/*    }}*/}
-            {/*  />*/}
-            {/*)}*/}
+            {playingSong && playingSong.id === data.id && (
+              <IonIcon
+                icon={playCircle}
+                onClick={() => {
+                  onPlay(data.id);
+                }}
+              />
+            )}
           </IonItem>
         );
       })}

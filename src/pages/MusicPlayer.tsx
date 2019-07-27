@@ -17,17 +17,17 @@ import {
 } from '@ionic/react';
 import { fastforward } from 'ionicons/icons';
 
-import { ShuffleSongController } from '../../controller/ShuffleSongController';
-import { initialSongState, songData } from '../../data/songData';
-import { Song } from '../../model/ShuffleSongModel';
-import PlayListComponent from '../../component/PlayListComponent';
+import { ShuffleSongController } from '../controller/ShuffleSongController';
+import { initialSongState, songData } from '../data/songData';
+import { Song } from '../model/ShuffleSongModel';
+import PlayListComponent from '../component/PlayListComponent';
 
 interface Props {}
 interface State {
   songs: Song[];
   nextSong: Song;
   next5Song: Song[];
-  playIndex?: number;
+  playingIndex?: number;
   nowPlaying?: Song;
   showModal: boolean;
 }
@@ -63,15 +63,15 @@ export class MusicPlayer extends React.Component<Props, State> {
 
   onPlay(index: number) {
     console.log('onPlay', index);
-    this.musicController.setPlayIndex(index);
-    this.setState({ playIndex: index, nowPlaying: this.state.songs[index] });
+    this.musicController.setPlayingIndex(index);
+    this.setState({ playingIndex: index, nowPlaying: this.state.songs[index] });
   }
 
   onNext() {
     console.log('onNext');
 
     this.setState({
-      playIndex: this.musicController.getPlayIndex(),
+      playingIndex: this.musicController.getPlayingIndex(),
       nowPlaying: this.musicController.getNextSong(),
       songs: this.musicController.getSongs(),
     });
