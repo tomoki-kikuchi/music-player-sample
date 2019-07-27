@@ -27,17 +27,17 @@ interface State {
   songs: Song[];
   nextSong: Song;
   next5Song: Song[];
-  playNumber?: number;
+  playIndex?: number;
   nowPlaying?: Song;
   showModal: boolean;
 }
 
 export class MusicPlayer extends React.Component<Props, State> {
-  controller: ShuffleSongController;
+  musicController: ShuffleSongController;
 
   constructor(props: Props) {
     super(props);
-    this.controller = new ShuffleSongController();
+    this.musicController = new ShuffleSongController();
     this.setPlayList = this.setPlayList.bind(this);
     this.onNext = this.onNext.bind(this);
     this.getNext5Song = this.getNext5Song.bind(this);
@@ -55,29 +55,32 @@ export class MusicPlayer extends React.Component<Props, State> {
 
   setPlayList(): void {
     console.log('setPlayList');
-    this.controller.setSong(songData);
+    this.musicController.setSongs(songData);
     this.setState({
-      songs: this.controller.getSongs(),
+      songs: this.musicController.getSongs(),
     });
   }
 
-  onPlay(id: number) {
-    console.log('onPlay', id);
-    this.setState({ nowPlaying: initialSongState });
+  onPlay(index: number) {
+    console.log('onPlay', index);
+    this.musicController.setPlayIndex(index);
+    this.setState({ playIndex: index, nowPlaying: this.state.songs[index] });
   }
 
   onNext() {
     console.log('onNext');
 
     this.setState({
-      nowPlaying: this.controller.getNextSong(),
+      playIndex: this.musicController.getPlayIndex(),
+      nowPlaying: this.musicController.getNextSong(),
+      songs: this.musicController.getSongs(),
     });
   }
 
   showNext5Song() {
     this.setState({
       showModal: true,
-      next5Song: this.controller.peekQueue(),
+      next5Song: this.musicController.peekQueue(),
     });
   }
 
@@ -85,7 +88,7 @@ export class MusicPlayer extends React.Component<Props, State> {
     console.log('nextSong');
 
     this.setState({
-      next5Song: this.controller.peekQueue(),
+      next5Song: this.musicController.peekQueue(),
     });
   }
 

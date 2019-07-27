@@ -13,7 +13,7 @@ export function Player() {
 
   const setSongs = () => {
     console.log("setPlayList");
-    controller.setSong(songData);
+    controller.setSongs(songData);
 
     setStateSongs(controller.getSongs());
   };

@@ -20,7 +20,7 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
             button
             detail={false}
             onClick={() => {
-              onPlay(data.id);
+              onPlay(index);
             }}
             key={`${index}_${data.id}`}
           >

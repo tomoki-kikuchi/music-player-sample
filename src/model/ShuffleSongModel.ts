@@ -9,7 +9,7 @@ export type Song = {
 };
 
 export type ShuffleEngine = {
-  setSong(songs: Song[]): void;
+  setSongs(songs: Song[]): void;
   getNextSong(): Song;
   peekQueue(): Song[];
 };
