@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { ShuffleSongController } from '../../controller/ShuffleSongController';
 import { initialSongState, songData } from '../../data/songData';
 import { Song } from '../../model/ShuffleSongModel';
