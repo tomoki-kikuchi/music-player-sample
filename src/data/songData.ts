@@ -8,6 +8,7 @@ export const songData: Song[] = [
     albumTitle: 'LOS INGOBERNABLES de JAPON',
     genre: 'genre1',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const songData: Song[] = [
     albumTitle: 'LOVE & ENERGY ~Hiroshi Tanahashi ENTRANCE MUSIC~',
     genre: 'genre2',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ export const songData: Song[] = [
     albumTitle: '新日本プロレスリング "NEXT SIDE"',
     genre: 'genre3',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 4,
@@ -32,6 +35,7 @@ export const songData: Song[] = [
     albumTitle: '新日本プロレスリング “ARENA SIDE”',
     genre: 'genre4',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 5,
@@ -40,6 +44,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム5',
     genre: 'genre5',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 6,
@@ -48,6 +53,7 @@ export const songData: Song[] = [
     albumTitle: '新日本プロレスリング“NEVER SIDE"',
     genre: 'genre6',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 7,
@@ -56,6 +62,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム7',
     genre: 'genre7',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 8,
@@ -64,6 +71,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム8',
     genre: 'genre8',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 9,
@@ -72,6 +80,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム9',
     genre: 'genre9',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 10,
@@ -80,6 +89,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム10',
     genre: 'genre10',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 11,
@@ -88,6 +98,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム11',
     genre: 'genre11',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 12,
@@ -96,6 +107,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム12',
     genre: 'genre12',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 13,
@@ -104,6 +116,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム13',
     genre: 'genre13',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 14,
@@ -112,6 +125,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム14',
     genre: 'genre14',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 15,
@@ -120,6 +134,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム15',
     genre: 'genre15',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 16,
@@ -128,6 +143,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム16',
     genre: 'genre16',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 17,
@@ -136,6 +152,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム17',
     genre: 'genre17',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 18,
@@ -144,6 +161,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム18',
     genre: 'genre18',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 19,
@@ -152,6 +170,7 @@ export const songData: Song[] = [
     albumTitle: 'アルバム19',
     genre: 'genre19',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
   {
     id: 20,
@@ -160,14 +179,16 @@ export const songData: Song[] = [
     albumTitle: 'アルバム20',
     genre: 'genre20',
     songTime: 50000,
+    cover: '/assets/img/cover_njpw.jpg',
   },
 ];
 
-export const initialSongState = {
+export const initialSongState: Song = {
   id: 1,
   title: 'BUSHI-DO〜BUSHIのテーマ',
   artistName: '新日本プロレスリング',
   albumTitle: 'LOS INGOBERNABLES de JAPON',
   genre: 'genre1',
   songTime: 50000,
+  cover: '/assets/img/cover_njpw.jpg',
 };

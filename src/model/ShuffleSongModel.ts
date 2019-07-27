@@ -5,6 +5,7 @@ export type Song = {
   albumTitle: string;
   genre: string;
   songTime: number;
+  cover: string;
 };
 
 export type ShuffleEngine = {

@@ -1,13 +1,35 @@
 import React from 'react';
+import {
+  IonApp,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonList,
+  IonItem,
+  IonListHeader,
+  IonThumbnail,
+  IonLabel,
+  IonFooter,
+  IonIcon,
+  IonModal,
+} from '@ionic/react';
+import { fastforward } from 'ionicons/icons';
+
 import { ShuffleSongController } from '../../controller/ShuffleSongController';
 import { initialSongState, songData } from '../../data/songData';
 import { Song } from '../../model/ShuffleSongModel';
+import PlayListComponent from '../../component/PlayListComponent';
 
 interface Props {}
 interface State {
   songs: Song[];
   nextSong: Song;
   next5Song: Song[];
+  playNumber?: number;
+  nowPlaying?: Song;
+  showModal: boolean;
 }
 
 export class MusicPlayer extends React.Component<Props, State> {
@@ -16,34 +38,50 @@ export class MusicPlayer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.controller = new ShuffleSongController();
-    this.setSongs = this.setSongs.bind(this);
-    this.getNextSong = this.getNextSong.bind(this);
-    this.peekQueue = this.peekQueue.bind(this);
+    this.setPlayList = this.setPlayList.bind(this);
+    this.onNext = this.onNext.bind(this);
+    this.getNext5Song = this.getNext5Song.bind(this);
+    this.onPlay = this.onPlay.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+    this.showNext5Song = this.showNext5Song.bind(this);
 
     this.state = {
       songs: [],
       nextSong: initialSongState,
       next5Song: [],
+      showModal: false,
     };
   }
 
-  setSongs(): void {
-    console.log('setSongs');
+  setPlayList(): void {
+    console.log('setPlayList');
     this.controller.setSong(songData);
     this.setState({
       songs: this.controller.getSongs(),
     });
   }
 
-  getNextSong() {
-    console.log('nextSong');
+  onPlay(id: number) {
+    console.log('onPlay', id);
+    this.setState({ nowPlaying: initialSongState });
+  }
+
+  onNext() {
+    console.log('onNext');
 
     this.setState({
-      nextSong: this.controller.getNextSong(),
+      nowPlaying: this.controller.getNextSong(),
     });
   }
 
-  peekQueue() {
+  showNext5Song() {
+    this.setState({
+      showModal: true,
+      next5Song: this.controller.peekQueue(),
+    });
+  }
+
+  getNext5Song() {
     console.log('nextSong');
 
     this.setState({
@@ -51,37 +89,71 @@ export class MusicPlayer extends React.Component<Props, State> {
     });
   }
 
+  onCloseModal() {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <h1>Playerコンポーネント</h1>
+        <IonApp>
+          <IonContent>
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle>Music Player</IonTitle>
+              </IonToolbar>
+            </IonHeader>
 
-        {this.state.songs.length !== 0 && <div>合計{this.state.songs.length}曲</div>}
-        <button onClick={this.setSongs}>プレイリストを設定する</button>
-        <button onClick={this.getNextSong}>次の曲を再生</button>
-        <button onClick={this.peekQueue}>次の5曲を表示</button>
+            <IonButton onClick={this.setPlayList}>プレイリストを設定する</IonButton>
+            {/*<IonButton onClick={this.onNext}>次の曲を再生</IonButton>*/}
+            <IonButton
+              disabled={(() => {
+                return this.state.songs.length === 0;
+              })()}
+              onClick={this.showNext5Song}
+            >
+              次の5曲を表示
+            </IonButton>
 
-        <p>プレイリスト</p>
-        <ul>
-          {this.state.songs.map((data: Song, index: number) => {
-            return (
-              <li key={`${index}_${data.id}`}>
-                {index + 1}. {data.title}
-              </li>
-            );
-          })}
-        </ul>
+            <PlayListComponent onPlay={this.onPlay} songs={this.state.songs} playingSong={this.state.nowPlaying} />
 
-        <p>次の5曲</p>
-        <ul>
-          {this.state.next5Song.map((data: Song, index: number) => {
-            return (
-              <li key={`${index}_${data.id}`}>
-                {index + 1}. {data.title}
-              </li>
-            );
-          })}
-        </ul>
+            <IonModal isOpen={this.state.showModal}>
+              <IonList>
+                <IonListHeader>次の5曲</IonListHeader>
+                {this.state.next5Song.map((data: Song, index: number) => {
+                  return (
+                    <IonItem key={`${index}_${data.id}`}>
+                      <IonThumbnail slot="start">
+                        <img src={data.cover} alt={data.albumTitle} />
+                      </IonThumbnail>
+                      <IonLabel>{data.title}</IonLabel>
+                    </IonItem>
+                  );
+                })}
+              </IonList>
+              <IonButton onClick={() => this.onCloseModal()}>閉じる</IonButton>
+            </IonModal>
+          </IonContent>
+          {this.state.nowPlaying && (
+            <IonFooter>
+              <IonItem color={'dark'}>
+                <IonThumbnail slot="start">
+                  <img src={this.state.nowPlaying.cover} alt={this.state.nowPlaying.albumTitle} />
+                </IonThumbnail>
+                <IonLabel>{this.state.nowPlaying.title}</IonLabel>
+                <IonIcon
+                  icon={fastforward}
+                  onClick={() => {
+                    this.onNext();
+                    // onPlay(data.id);
+                  }}
+                />
+              </IonItem>
+            </IonFooter>
+          )}
+        </IonApp>
       </div>
     );
   }

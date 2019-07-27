@@ -12,7 +12,7 @@ export function Player() {
   const [count, setCount] = useState(0);
 
   const setSongs = () => {
-    console.log("setSongs");
+    console.log("setPlayList");
     controller.setSong(songData);
 
     setStateSongs(controller.getSongs());
@@ -22,7 +22,7 @@ export function Player() {
     setStateNexSongs(controller.getNextSong());
   };
   const peekQueue = () => {
-    console.log("peekQueue", controller.peekQueue());
+    console.log("getNext5Song", controller.peekQueue());
     controller.peekQueue();
   };
 
