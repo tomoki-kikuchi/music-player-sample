@@ -58,6 +58,7 @@ export class MusicPlayer extends React.Component<Props, State> {
     this.musicController.setSongs(songData);
     this.setState({
       songs: this.musicController.getSongs(),
+      nowPlaying: undefined,
     });
   }
 
