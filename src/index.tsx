@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import * as serviceWorker from './serviceWorker';
 
 // @ts-ignore
 import styles from './index.modules.scss';
@@ -17,3 +18,5 @@ function App() {
 
 const rootElement = document.getElementById('root');
 render(<App />, rootElement);
+
+serviceWorker.register();
