@@ -7,9 +7,10 @@ type Props = {
   songs: Song[];
   onPlay(id: number): void;
   playingSong?: Song;
+  isPlaying: boolean;
 };
 
-const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => (
+const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong, isPlaying }) => (
   <>
     <IonList lines={'inset'}>
       {songs.length !== 0 && <IonListHeader>プレイリスト</IonListHeader>}
@@ -20,6 +21,7 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
             index={index}
             songData={data}
             playingSong={playingSong}
+            isPlaying={isPlaying}
             onPlay={() => {
               onPlay(index);
             }}
