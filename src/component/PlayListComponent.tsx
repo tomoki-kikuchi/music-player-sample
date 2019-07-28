@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonThumbnail } from '@ionic/react';
 import { volumeHigh } from 'ionicons/icons';
-import { Song } from '../model/ShuffleSongModel';
+import { Song } from '../models/ShuffleSongModel';
 
 type Props = {
   songs: Song[];
@@ -24,7 +24,7 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
             key={`${index}_${data.id}`}
           >
             <IonThumbnail slot="start">
-              <img src={data.cover} alt={data.albumTitle} />
+              <img src={data.coverImageUrl} alt={data.albumTitle} />
             </IonThumbnail>
             <IonLabel>{data.title}</IonLabel>
             {playingSong && playingSong.id === data.id && <IonIcon icon={volumeHigh} />}

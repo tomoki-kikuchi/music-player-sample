@@ -1,4 +1,4 @@
-import { ShuffleEngine, Song } from '../model/ShuffleSongModel';
+import { ShuffleEngine, Song } from '../models/ShuffleSongModel';
 import { getShuffleData } from '../utils/shuffledArray';
 
 const PEEKMAX: number = 5;
