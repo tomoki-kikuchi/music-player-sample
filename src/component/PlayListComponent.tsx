@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonReorder, IonThumbnail } from '@ionic/react';
-import { playCircle } from 'ionicons/icons';
+import { volumeHigh } from 'ionicons/icons';
 import { Song } from '../model/ShuffleSongModel';
 
 type Props = {
@@ -13,7 +13,6 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
   <>
     <IonList lines={'inset'}>
       {songs.length !== 0 && <IonListHeader>プレイリスト</IonListHeader>}
-
       {songs.map((data: Song, index: number) => {
         return (
           <IonItem
@@ -28,15 +27,7 @@ const PlayListComponent: React.SFC<Props> = ({ songs, onPlay, playingSong }) => 
               <img src={data.cover} alt={data.albumTitle} />
             </IonThumbnail>
             <IonLabel>{data.title}</IonLabel>
-
-            {playingSong && playingSong.id === data.id && (
-              <IonIcon
-                icon={playCircle}
-                onClick={() => {
-                  onPlay(data.id);
-                }}
-              />
-            )}
+            {playingSong && playingSong.id === data.id && <IonIcon icon={volumeHigh} />}
           </IonItem>
         );
       })}

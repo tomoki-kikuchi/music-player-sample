@@ -12,6 +12,8 @@ import {
   IonThumbnail,
   IonLabel,
   IonModal,
+  IonRow,
+  IonCol,
 } from '@ionic/react';
 
 import { ShuffleSongController } from '../controller/ShuffleSongController';
@@ -53,7 +55,6 @@ export class MusicPlayer extends React.Component<Props, State> {
    * プレイリストを設定する
    */
   setPlayList(): void {
-    console.log('setPlayList');
     this.musicController.setSongs(songData);
     this.setState({
       songs: this.musicController.getSongs(),
@@ -65,7 +66,6 @@ export class MusicPlayer extends React.Component<Props, State> {
    * @param index
    */
   onPlay(index: number) {
-    console.log('onPlay', index);
     this.musicController.setPlayingIndex(index);
     this.setState({ playingIndex: index, nowPlaying: this.state.songs[index] });
   }
@@ -74,7 +74,6 @@ export class MusicPlayer extends React.Component<Props, State> {
    * 次の曲を再生する
    */
   onPlayNext() {
-    console.log('onPlayNext');
     this.setState({
       playingIndex: this.musicController.getPlayingIndex(),
       nowPlaying: this.musicController.getNextSong(),
@@ -112,21 +111,33 @@ export class MusicPlayer extends React.Component<Props, State> {
               </IonToolbar>
             </IonHeader>
 
-            <IonButton onClick={this.setPlayList}>プレイリストを設定する</IonButton>
-            <IonButton
-              disabled={(() => {
-                return this.state.songs.length === 0;
-              })()}
-              onClick={this.showNext5Song}
-            >
-              次の5曲を表示
-            </IonButton>
+            {/* ボタンブロック */}
+            <IonRow>
+              <IonCol>
+                <IonButton onClick={this.setPlayList}>プレイリストを設定する</IonButton>
+              </IonCol>
+              <IonCol>
+                <IonButton
+                  disabled={(() => {
+                    return this.state.songs.length === 0;
+                  })()}
+                  onClick={this.showNext5Song}
+                >
+                  次の5曲を表示
+                </IonButton>
+              </IonCol>
+            </IonRow>
 
             <PlayListComponent onPlay={this.onPlay} songs={this.state.songs} playingSong={this.state.nowPlaying} />
 
+            {/* 次の5件のモーダル */}
             <IonModal isOpen={this.state.showModal}>
               <IonList>
-                <IonListHeader>次の5曲</IonListHeader>
+                <IonHeader>
+                  <IonToolbar>
+                    <IonTitle>次の5曲</IonTitle>
+                  </IonToolbar>
+                </IonHeader>
                 {this.state.next5Song.map((data: Song, index: number) => {
                   return (
                     <IonItem key={`${index}_${data.id}`}>
@@ -142,6 +153,7 @@ export class MusicPlayer extends React.Component<Props, State> {
             </IonModal>
           </IonContent>
 
+          {/* プレイ状況の表示 */}
           {this.state.nowPlaying && <ControlViewComponent nowPlaying={this.state.nowPlaying} onNext={this.onPlayNext} />}
         </IonApp>
       </div>
