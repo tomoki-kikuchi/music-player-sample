@@ -19,8 +19,8 @@ import {
 import { ShuffleSongController } from '../controller/ShuffleSongController';
 import { songData } from '../data/songData';
 import { Song } from '../models/ShuffleSongModel';
-import PlayListComponent from '../component/PlayListComponent';
-import ControlViewComponent from '../component/ControlViewComponent';
+import PlayListComponent from '../component/organisms/PlayListComponent';
+import ControlViewComponent from '../component/organisms/ControlViewComponent';
 
 interface Props {}
 interface State {
