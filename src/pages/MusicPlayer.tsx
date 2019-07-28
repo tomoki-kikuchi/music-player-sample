@@ -20,7 +20,7 @@ import { ShuffleSongController } from '../controller/ShuffleSongController';
 import { songData } from '../data/songData';
 import { Song } from '../models/ShuffleSongModel';
 import PlayListComponent from '../component/organisms/PlayListComponent';
-import ControlViewComponent from '../component/organisms/ControlViewComponent';
+import ControlView from '../component/molecules/ControlView';
 
 interface Props {}
 interface State {
@@ -28,8 +28,9 @@ interface State {
   nextSong?: Song;
   next5Song: Song[];
   playingIndex?: number;
-  nowPlaying?: Song;
+  playingSong?: Song;
   showModal: boolean;
+  isPlaying: boolean;
 }
 
 export class MusicPlayer extends React.Component<Props, State> {
@@ -41,6 +42,7 @@ export class MusicPlayer extends React.Component<Props, State> {
     this.setPlayList = this.setPlayList.bind(this);
     this.onPlayNext = this.onPlayNext.bind(this);
     this.onPlay = this.onPlay.bind(this);
+    this.onTogglePlay = this.onTogglePlay.bind(this);
     this.onCloseModal = this.onCloseModal.bind(this);
     this.showNext5Song = this.showNext5Song.bind(this);
 
@@ -48,6 +50,7 @@ export class MusicPlayer extends React.Component<Props, State> {
       songs: [],
       next5Song: [],
       showModal: false,
+      isPlaying: false,
     };
   }
 
@@ -58,6 +61,7 @@ export class MusicPlayer extends React.Component<Props, State> {
     this.musicController.setSongs(songData);
     this.setState({
       songs: this.musicController.getSongs(),
+      playingSong: undefined,
     });
   }
 
@@ -67,7 +71,7 @@ export class MusicPlayer extends React.Component<Props, State> {
    */
   onPlay(index: number) {
     this.musicController.setPlayingIndex(index);
-    this.setState({ playingIndex: index, nowPlaying: this.state.songs[index] });
+    this.setState({ playingIndex: index, playingSong: this.state.songs[index], isPlaying: true });
   }
 
   /**
@@ -76,9 +80,16 @@ export class MusicPlayer extends React.Component<Props, State> {
   onPlayNext() {
     this.setState({
       playingIndex: this.musicController.getPlayingIndex(),
-      nowPlaying: this.musicController.getNextSong(),
+      playingSong: this.musicController.getNextSong(),
       songs: this.musicController.getSongs(),
     });
+  }
+
+  /**
+   * 再生/一時停止を切り変える
+   */
+  onTogglePlay() {
+    this.setState({ isPlaying: !this.state.isPlaying });
   }
 
   /**
@@ -128,7 +139,7 @@ export class MusicPlayer extends React.Component<Props, State> {
               </IonCol>
             </IonRow>
 
-            <PlayListComponent onPlay={this.onPlay} songs={this.state.songs} playingSong={this.state.nowPlaying} />
+            <PlayListComponent onPlay={this.onPlay} songs={this.state.songs} playingSong={this.state.playingSong} isPlaying={this.state.isPlaying} />
 
             {/* 次の5件のモーダル */}
             <IonModal isOpen={this.state.showModal}>
@@ -154,7 +165,14 @@ export class MusicPlayer extends React.Component<Props, State> {
           </IonContent>
 
           {/* プレイ状況の表示 */}
-          {this.state.nowPlaying && <ControlViewComponent nowPlaying={this.state.nowPlaying} onNext={this.onPlayNext} />}
+          {this.state.playingSong && (
+            <ControlView
+              playingSong={this.state.playingSong}
+              onNext={this.onPlayNext}
+              onTogglePlay={this.onTogglePlay}
+              isPlaying={this.state.isPlaying}
+            />
+          )}
         </IonApp>
       </div>
     );

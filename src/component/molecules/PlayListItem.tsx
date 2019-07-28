@@ -8,9 +8,10 @@ type Props = {
   songData: Song;
   playingSong?: Song;
   index: number;
+  isPlaying: boolean;
 };
 
-const PlayListItem: React.SFC<Props> = ({ songData, onPlay, playingSong, index }) => (
+const PlayListItem: React.SFC<Props> = ({ songData, onPlay, playingSong, index, isPlaying }) => (
   <>
     <IonItem
       button
@@ -23,7 +24,7 @@ const PlayListItem: React.SFC<Props> = ({ songData, onPlay, playingSong, index }
         <img src={songData.coverImageUrl} alt={songData.albumTitle} />
       </IonThumbnail>
       <IonLabel>{songData.title}</IonLabel>
-      {playingSong && playingSong.id === songData.id && <IonIcon icon={volumeHigh} />}
+      {isPlaying && playingSong && playingSong.id === songData.id && <IonIcon icon={volumeHigh} />}
     </IonItem>
   </>
 );
