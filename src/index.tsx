@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import './styles.css';
+// @ts-ignore
+import styles from './index.modules.scss';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
 import { MusicPlayer } from './pages/MusicPlayer';
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.App}>
       <MusicPlayer />
     </div>
   );
