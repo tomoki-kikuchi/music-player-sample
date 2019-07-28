@@ -1,4 +1,4 @@
-import { ShuffleEngine, Song } from '../model/ShuffleSongModel';
+import { ShuffleEngine, Song } from '../models/ShuffleSongModel';
 import { getShuffleData } from '../utils/shuffledArray';
 
 const PEEKMAX: number = 5;
@@ -8,7 +8,7 @@ export class ShuffleSongController implements ShuffleEngine {
   playingIndex: number = 0;
 
   /**
-   * シャッフル対象曲を設定する
+   * シャッフル対象曲リストを設定する
    * @param songs
    */
   setSongs(songs: Song[]): void {
@@ -16,7 +16,7 @@ export class ShuffleSongController implements ShuffleEngine {
   }
 
   /**
-   * 対象曲を返却する
+   * 対象曲リストを返却する
    */
   getSongs(): Song[] {
     return this.songs;
@@ -48,8 +48,7 @@ export class ShuffleSongController implements ShuffleEngine {
       this.setPlayingIndex(0);
       return this.songs[0];
     } else {
-      const nextSong = this.songs[this.playingIndex];
-      return nextSong;
+      return this.songs[this.playingIndex];
     }
   }
 

@@ -18,9 +18,9 @@ import {
 
 import { ShuffleSongController } from '../controller/ShuffleSongController';
 import { songData } from '../data/songData';
-import { Song } from '../model/ShuffleSongModel';
-import PlayListComponent from '../component/PlayListComponent';
-import ControlViewComponent from '../component/ControlViewComponent';
+import { Song } from '../models/ShuffleSongModel';
+import PlayListComponent from '../component/organisms/PlayListComponent';
+import ControlViewComponent from '../component/organisms/ControlViewComponent';
 
 interface Props {}
 interface State {
@@ -142,7 +142,7 @@ export class MusicPlayer extends React.Component<Props, State> {
                   return (
                     <IonItem key={`${index}_${data.id}`}>
                       <IonThumbnail slot="start">
-                        <img src={data.cover} alt={data.albumTitle} />
+                        <img src={data.coverImageUrl} alt={data.albumTitle} />
                       </IonThumbnail>
                       <IonLabel>{data.title}</IonLabel>
                     </IonItem>
