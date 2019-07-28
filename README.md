@@ -1,3 +1,35 @@
+# music-player-sample
+
+## 動作環境
+
+node.js `v10.15.0`
+
+## 作業環境インストール
+
+```
+npm install
+```
+
+## 開発時に実行
+
+```
+npm run start
+```
+
+`localhost:3000` で開発用サーバーが起動し、ビルドが実行される。
+
+ビルドが成功すると、ブラウザが立ち上がり画面が表示される。
+
+開発用サーバー起動時は `src` 配下のファイルが watch され、ファイル更新時にライブリロードが走る。
+
+## ビルドの実行
+
+```
+npm run build
+```
+
+ビルドが実行され、`build` ディレクトリ配下にファイルが生成される。
+
 ## ディレクトリ構造
 
 ディレクトリ構成は以下のように定義する
@@ -44,19 +76,39 @@ root
 
 ### Song クラス
 
+楽曲の情報を表すクラス。
+曲に関するメタデータが追加されたときはこちらのクラスを拡張する。
+
 ```typescript
 export type Song = {
-  id: number; // 曲のID
-  title: string; // 曲のタイトル
-  artistName: string; // 歌手名
-  albumTitle: string; // アルバムのタイトル
-  genre: string; // ジャンル
-  songTime: number; // 曲の時間
-  coverImageUrl: string; // カバー画像のURL
+  id: number;
+  title: string;
+  artistName: string;
+  albumTitle: string;
+  genre: string;
+  songTime: number;
+  coverImageUrl: string;
 };
 ```
 
+- id
+  - 曲の ID
+- title
+  - 曲のタイトル
+- artistName
+  - 歌手名
+- albumTitle
+  - アルバムのタイトル
+- genre
+  - ジャンル
+- songTime
+  - 曲の時間
+- coverImageUrl
+  - カバー画像の URL
+
 ### ShuffleEngine クラス
+
+プレーヤーの内部で曲の情報を管理するクラス。
 
 ```typescript
 export type ShuffleEngine = {
@@ -66,7 +118,17 @@ export type ShuffleEngine = {
 };
 ```
 
+- setSongs
+  - シャッフル対象の曲(Song)の配列をインスタンスに設定する。
+- getNextSong
+  - 次に再生する曲(Song)を返します。次に返す曲が更新される。
+- peekQueue
+  - PEEKMAX の数を上限として,次に再生する予定の曲を先読みして配列として返す。次に返す曲の状態は変わらない。
 
-## Controllerクラス
+## Controller クラス
 
 ### ShuffleSongController.ts
+
+`ShuffleEngineクラス` を継承して作成したクラス。
+
+機能を追加する時にはこちらのクラスに機能を実装する。
